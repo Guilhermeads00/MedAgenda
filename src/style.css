@@ -1,0 +1,28 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8faf9;
+  color: #333333;
+}
+
+#app {
+ 
+#app {
+  max-width: 1120px;
+  margin: 0 auto;
+  background-color: white;
+}
+
+}
+
+button,
+input,
+select {
+  font-family: Arial, sans-serif;
+}
