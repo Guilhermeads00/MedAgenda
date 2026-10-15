@@ -175,12 +175,11 @@ O sistema não realiza agendamentos reais com clínicas ou profissionais de saú
 
 ## Integrantes da equipe
 
-- Integrante 1: [Nome]
-- Integrante 2: [Nome]
-- Integrante 3: [Nome]
-- Integrante 4: [Nome]
-- Integrante 5: [Nome]
-- Integrante 6: [Nome]
+- Integrante 1: Guilherme da Rocha da Silva
+- Integrante 2: Enzo Lira da Silva
+- Integrante 3: Fernando Noronha Braga da Silva 
+- Integrante 4: Salomão Bayonas Miranda Ribeiro
+
 
 ## Disciplina
 
