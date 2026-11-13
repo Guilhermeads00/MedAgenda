@@ -1,191 +1,485 @@
 # 🩺 MedAgenda — Sistema de Agendamento de Consultas Médicas
 
-## Sobre o projeto
+## 1. Sobre o projeto
 
-O MedAgenda é uma aplicação front-end desenvolvida com Vue.js, com o objetivo de simular o agendamento de consultas médicas de maneira simples e organizada.
+O **MedAgenda** é uma aplicação web desenvolvida em Vue.js 3 para simular o agendamento de consultas médicas de forma simples, rápida e organizada.
 
-O projeto foi desenvolvido como atividade avaliativa da disciplina de Front-End Frameworks, do curso de Análise e Desenvolvimento de Sistemas.
+O projeto foi desenvolvido na disciplina de **Front-End Frameworks**, do curso de Análise e Desenvolvimento de Sistemas (ADS), e evoluiu ao longo das atividades acadêmicas, incorporando componentização, reatividade, responsividade, Bootstrap 5, Vue Router e integração com uma API externa.
 
-Nossa proposta foi criar uma interface na qual o usuário pudesse visualizar os médicos disponíveis, escolher um profissional, preencher os dados necessários e acompanhar suas consultas agendadas.
+Na atualização mais recente, implementamos a integração com a **API ViaCEP**, permitindo ao paciente consultar seu endereço e selecionar uma das unidades fictícias do MedAgenda antes de confirmar o agendamento.
 
-Durante o desenvolvimento, procuramos aplicar os conceitos estudados em sala, principalmente componentização, props, diretivas, eventos e reatividade.
+## 2. Integrantes da equipe
 
-## Funcionalidades
+- Guilherme da Rocha da Silva
+- Enzo Lira da Silva
+- Fernando Noronha Braga da Silva
+- Salomão Bayonas Miranda Ribeiro
 
-- Visualização dos médicos e suas especialidades.
-- Seleção de médicos diretamente pelos cards.
-- Formulário para agendamento de consultas.
-- Seleção de data e horário.
-- Validação dos campos obrigatórios.
-- Exibição das consultas agendadas.
-- Menu com navegação entre seções da mesma página.
-- Interface adaptada para computadores e celulares.
+**Curso:** Análise e Desenvolvimento de Sistemas  
+**Disciplina:** Front-End Frameworks  
+**Professor:** André Neto
 
-## Tecnologias utilizadas
+## 3. Tecnologias utilizadas
 
-- **Vue.js 3:** desenvolvimento da interface e dos componentes.
-- **JavaScript:** funções, variáveis e interações.
-- **HTML:** organização dos elementos.
-- **CSS:** estilização e responsividade.
-- **Vite:** ambiente de desenvolvimento.
-- **StackBlitz:** desenvolvimento e testes da aplicação.
-
-Não foram utilizados Vue Router, frameworks CSS ou bibliotecas externas de componentes.
-
-## Organização dos componentes
-
-O projeto foi dividido em quatro componentes principais:
-
-| Componente | Função |
+| Tecnologia | Aplicação no projeto |
 |---|---|
-| `Cabecalho.vue` | Exibe a identidade do sistema e o menu. |
-| `CardMedico.vue` | Apresenta os médicos e suas especialidades. |
-| `ListaConsultas.vue` | Exibe as consultas agendadas. |
-| `Rodape.vue` | Apresenta as informações finais do projeto. |
+| Vue.js 3 | Componentes e interface reativa |
+| JavaScript | Lógica, eventos, validações e integração com API |
+| Vue Router 4 | Navegação SPA entre as páginas |
+| Bootstrap 5 | Estilização e responsividade |
+| HTML e CSS | Estrutura e identidade visual |
+| Vite | Ambiente de desenvolvimento |
+| StackBlitz | Desenvolvimento e testes |
+| API ViaCEP | Consulta de endereços por CEP |
+| localStorage | Armazenamento local dos agendamentos |
 
-O `App.vue` reúne esses componentes e controla as principais funcionalidades do sistema.
+O MedAgenda utiliza uma API pública para consultar endereços, mas não possui um back-end próprio para gerenciar consultas médicas.
 
-### Conceitos de Vue utilizados
+## 4. Funcionalidades do sistema
 
-**Props:** utilizadas para passar informações entre os componentes, como o nome e a especialidade de cada médico.
+O MedAgenda permite:
 
-**ref():** utilizado para criar variáveis reativas, armazenar os dados do formulário e atualizar a lista de consultas.
+- Visualizar os profissionais e suas especialidades.
+- Selecionar um médico e iniciar um agendamento.
+- Preencher nome do paciente, data e horário.
+- Formatar automaticamente a data e o horário.
+- Impedir datas inexistentes, passadas e horários inválidos.
+- Consultar endereços brasileiros por CEP.
+- Visualizar três unidades fictícias de atendimento.
+- Receber uma sugestão de unidade com base na cidade do CEP consultado.
+- Selecionar a unidade desejada.
+- Confirmar o agendamento com a unidade escolhida.
+- Consultar e cancelar agendamentos.
+- Manter os agendamentos salvos no navegador utilizando `localStorage`.
+- Navegar entre páginas sem recarregar toda a aplicação.
 
-**v-model:** utilizado para conectar os campos do formulário às variáveis.
+A interface também possui estilos responsivos para diferentes tamanhos de tela.
 
-**v-if:** utilizado para controlar a exibição do formulário e das mensagens de validação.
+## 5. Organização das páginas com Vue Router
 
-**v-for:** utilizado para mostrar os médicos e as consultas a partir de listas.
+O projeto utiliza Vue Router 4 para implementar uma **Single Page Application (SPA)**.
 
-**@click:** utilizado para executar funções quando o usuário clica nos botões.
+Uma SPA permite navegar entre diferentes páginas da aplicação sem recarregar todo o documento HTML.
 
-### Reutilização de componentes
+As rotas implementadas são:
 
-Um dos principais exemplos de reutilização está no `CardMedico.vue`.
+| Rota | Componente | Funcionalidade |
+|---|---|---|
+| `/` | `InicioView.vue` | Página inicial |
+| `/medicos` | `MedicosView.vue` | Listagem dos médicos |
+| `/agendar` | `AgendarView.vue` | Formulário de agendamento e consulta de CEP |
+| `/consultas` | `ConsultasView.vue` | Visualização das consultas registradas |
 
-Criamos apenas um componente para representar um médico, mas o utilizamos para apresentar diferentes profissionais. As informações são recebidas através de props, evitando a repetição de código.
+A configuração das rotas está localizada em `src/router/index.js`.
 
-## Como executar o projeto
+O componente `RouterLink` realiza a navegação, enquanto `RouterView` exibe a página correspondente à rota atual.
 
-É necessário ter o Node.js e o npm instalados.
+## 6. Evolução visual com Bootstrap 5
 
-1. Baixe ou clone este repositório.
-2. Abra a pasta do projeto em um terminal.
-3. Instale as dependências:
+O Bootstrap 5 foi integrado ao projeto para melhorar a organização visual, os componentes e a responsividade.
+
+A instalação foi realizada via npm, e o CSS do Bootstrap foi importado no arquivo `src/main.js`.
+
+### Classes utilizadas
+
+| Classe | Função |
+|---|---|
+| `container-xl` | Organiza a largura do conteúdo |
+| `d-flex` | Alinha elementos com Flexbox |
+| `align-items-center` | Centraliza elementos verticalmente |
+| `shadow-sm` | Adiciona sombra suave |
+| `rounded-4` | Arredonda bordas dos componentes |
+| `p-4` | Aplica espaçamento interno |
+| `form-control` | Padroniza campos de texto |
+| `form-select` | Estiliza listas de seleção |
+| `row` e `col-md-6` | Organizam elementos em colunas responsivas |
+| `btn` | Aplica estilos básicos aos botões |
+| `alert-danger` | Destaca mensagens de erro |
+
+As principais melhorias visuais foram realizadas no cabeçalho, nos cards dos médicos e no formulário de agendamento.
+
+Mantivemos também estilos CSS personalizados para preservar a identidade visual do MedAgenda.
+
+---
+
+# 7. Integração Front-End e Back-End com API
+
+## 7.1 API escolhida
+
+Escolhemos a **API ViaCEP**, um serviço público e gratuito utilizado para consultar informações de endereços brasileiros.
+
+A API foi escolhida porque permite acrescentar ao MedAgenda uma funcionalidade relacionada à localização das unidades de atendimento, sem exigir a criação de um servidor próprio.
+
+**Site da API:** https://viacep.com.br/
+
+**Endpoint utilizado:**
+
+`https://viacep.com.br/ws/{cep}/json/`
+
+**Exemplo de requisição:**
+
+`https://viacep.com.br/ws/01001000/json/`
+
+**Método HTTP:** GET  
+**Formato dos dados:** JSON  
+**Biblioteca utilizada:** `fetch()` nativo do JavaScript
+
+Não é necessário cadastrar uma conta ou gerar uma chave de API para utilizar essa consulta pública.
+
+## 7.2 Como funciona a integração
+
+A integração ocorre na página **Agendar**, dentro do componente `ConsultaCep.vue`.
+
+O funcionamento segue estas etapas:
+
+1. O paciente informa seu CEP.
+2. O sistema verifica se foram digitados oito números.
+3. Ao clicar em **Buscar unidade**, é realizada uma requisição HTTP GET à API ViaCEP.
+4. A API retorna os dados do endereço em formato JSON.
+5. O JavaScript interpreta a resposta recebida.
+6. O Vue atualiza a interface com o endereço encontrado.
+7. O sistema mostra as três unidades cadastradas e destaca uma unidade da mesma cidade, quando disponível.
+8. O paciente escolhe a unidade onde deseja ser atendido.
+9. A unidade selecionada é registrada junto aos demais dados da consulta.
+
+A consulta do CEP é feita em tempo de execução, utilizando uma API externa.
+
+## 7.3 Código da requisição HTTP GET
+
+A lógica de comunicação com a API está localizada em:
+
+`src/services/cep.js`
+
+Trecho utilizado:
+
+```javascript
+const resposta = await fetch(
+  `https://viacep.com.br/ws/${cep}/json/`,
+  {
+    method: 'GET'
+  }
+)
+
+const dados = await resposta.json()
+```
+
+A função `fetch()` realiza a requisição HTTP.
+
+O `await` aguarda a conclusão da operação assíncrona.
+
+O método `resposta.json()` interpreta o corpo da resposta e disponibiliza os dados em um objeto JavaScript.
+
+Antes de utilizar a resposta, o código também verifica possíveis erros HTTP e a indicação de CEP inexistente retornada pelo ViaCEP.
+
+## 7.4 Processamento dos dados JSON
+
+A API pode retornar informações como:
+
+```json
+{
+  "cep": "01001-000",
+  "logradouro": "Praça da Sé",
+  "bairro": "Sé",
+  "localidade": "São Paulo",
+  "uf": "SP"
+}
+```
+
+O MedAgenda utiliza os dados relevantes para apresentar o endereço consultado.
+
+Os campos utilizados incluem CEP, logradouro, bairro, município e estado.
+
+No serviço `cep.js`, o campo `localidade` é convertido para `cidade`, facilitando sua utilização nos componentes.
+
+## 7.5 Programação assíncrona
+
+A consulta utiliza `async` e `await`.
+
+A programação assíncrona permite que a aplicação faça uma requisição à API sem bloquear toda a interface enquanto aguarda a resposta.
+
+No componente, também utilizamos `try`, `catch` e `finally` para controlar o processamento da requisição e os possíveis problemas.
+
+## 7.6 Recursos de Vue utilizados na integração
+
+**`ref()`**
+
+Armazena informações reativas, como o CEP, o endereço encontrado, os estados de carregamento e as mensagens de erro.
+
+**`v-model`**
+
+Conecta o campo de CEP à variável correspondente.
+
+**`v-if`**
+
+Controla a exibição dos resultados, mensagens e indicadores de carregamento.
+
+**`v-for`**
+
+Percorre a lista das três unidades e apresenta seus cartões dinamicamente.
+
+**Interpolação**
+
+Apresenta valores das variáveis no HTML, utilizando a sintaxe `{{ ... }}`.
+
+**`@click`**
+
+Executa a pesquisa do CEP e permite selecionar a unidade desejada.
+
+**Props e eventos personalizados**
+
+Permitem que o componente `ConsultaCep.vue` comunique a unidade escolhida à página de agendamento.
+
+## 7.7 Tratamento de carregamento, erros e ausência de resultados
+
+Foram implementados diferentes estados para melhorar a experiência do usuário.
+
+| Situação | Comportamento do sistema |
+|---|---|
+| Carregando | Mostra “Consultando...” e desabilita o botão |
+| CEP incompleto | Solicita um CEP válido com oito números |
+| Erro de rede ou HTTP | Exibe uma mensagem de erro |
+| CEP inexistente | Informa que o endereço não foi encontrado |
+| CEP encontrado | Mostra o endereço e as unidades disponíveis |
+| Nenhuma unidade selecionada | Impede a confirmação do agendamento |
+
+Esses tratamentos evitam que a interface apresente informações incorretas ou permita o envio de um agendamento incompleto.
+
+---
+
+# 8. Unidades de atendimento
+
+Para integrar a consulta de CEP ao formulário, cadastramos três unidades fictícias do MedAgenda.
+
+| Unidade | Localização de referência |
+|---|---|
+| Unidade BR-316 | Região da BR-316, Marituba/PA |
+| Unidade Umarizal | Bairro Umarizal, Belém/PA |
+| Unidade Cidade Nova | Bairro Cidade Nova, Ananindeua/PA |
+
+As unidades estão cadastradas em:
+
+`src/services/unidades.js`
+
+## 8.1 Indicação da unidade
+
+Após a consulta do CEP, o sistema identifica o município informado pela API.
+
+Quando existe uma unidade cadastrada na mesma cidade, ela é destacada como sugestão.
+
+Quando não existe unidade na cidade consultada, as três opções continuam disponíveis para escolha do paciente.
+
+**Importante:** o sistema não calcula distâncias em quilômetros nem rotas de deslocamento. A indicação considera o município e, quando aplicável, a referência de bairro.
+
+## 8.2 Seleção da unidade
+
+As unidades são apresentadas em cartões clicáveis.
+
+Quando o paciente seleciona uma unidade:
+
+- O cartão escolhido recebe destaque visual.
+- A identificação da unidade fica armazenada em uma variável reativa.
+- O formulário exige uma unidade válida para confirmar o agendamento.
+- A unidade escolhida é salva junto aos dados da consulta.
+- A página **Minhas consultas** apresenta a unidade de atendimento selecionada.
+
+O endereço pesquisado no ViaCEP não é armazenado junto ao agendamento; somente a unidade escolhida é registrada.
+
+## 8.3 Armazenamento dos agendamentos
+
+Os agendamentos são armazenados no navegador por meio do `localStorage`.
+
+Entre as informações registradas estão:
+
+- Nome do paciente.
+- Médico escolhido.
+- Data da consulta.
+- Horário.
+- Unidade de atendimento.
+- Cidade da unidade.
+
+O armazenamento é local e não representa um cadastro real em um servidor.
+
+---
+
+# 9. Organização dos arquivos
+
+O projeto mantém uma separação entre páginas, componentes e serviços.
+
+```text
+src/
+├── assets/
+│   └── hospital-corredor.jpg
+├── components/
+│   ├── Cabecalho.vue
+│   ├── CardMedico.vue
+│   ├── ConsultaCep.vue
+│   ├── ListaConsultas.vue
+│   └── Rodape.vue
+├── router/
+│   └── index.js
+├── services/
+│   ├── cep.js
+│   └── unidades.js
+├── views/
+│   ├── InicioView.vue
+│   ├── MedicosView.vue
+│   ├── AgendarView.vue
+│   └── ConsultasView.vue
+├── agenda.js
+├── App.vue
+├── main.js
+├── medagenda.css
+└── style.css
+```
+
+### Responsabilidades dos principais arquivos
+
+| Arquivo | Responsabilidade |
+|---|---|
+| `App.vue` | Estrutura principal da aplicação |
+| `main.js` | Inicialização do Vue, Bootstrap e roteador |
+| `router/index.js` | Configuração das rotas |
+| `agenda.js` | Lógica e estado compartilhado dos agendamentos |
+| `ConsultaCep.vue` | Campo de pesquisa, resultados e seleção de unidade |
+| `services/cep.js` | Requisição à API ViaCEP |
+| `services/unidades.js` | Unidades fictícias e regra de sugestão |
+| `AgendarView.vue` | Formulário e confirmação de agendamento |
+| `ListaConsultas.vue` | Listagem e cancelamento de consultas |
+
+Essa organização facilita a manutenção e a compreensão do código.
+
+---
+
+# 10. Como executar o projeto
+
+O projeto pode ser executado no StackBlitz ou localmente.
+
+Para execução local, é necessário possuir Node.js e npm instalados em versões compatíveis com as dependências do projeto.
+
+### Passo 1 — Instalar as dependências
 
 ```bash
 npm install
 ```
 
-4. Inicie o ambiente de desenvolvimento:
+### Passo 2 — Iniciar o servidor de desenvolvimento
 
 ```bash
 npm run dev
 ```
 
-5. Abra no navegador o endereço indicado pelo terminal.
+### Passo 3 — Abrir a aplicação
 
-## Uso de inteligência artificial
+Abra no navegador o endereço informado pelo terminal do Vite.
 
-Durante o desenvolvimento, utilizamos o ChatGPT como ferramenta de apoio para compreender conceitos, organizar os componentes, corrigir erros e melhorar a interface.
+Para testar a API, é necessário que o navegador tenha acesso à internet.
 
-A IA também auxiliou na adaptação de exemplos de Vue.js ao tema de consultas médicas.
+---
 
-Abaixo estão alguns dos principais prompts utilizados, com a indicação das etapas em que foram empregados.
+# 11. Testes realizados e demonstração
 
-### 1. Planejamento e divisão dos componentes
+O projeto foi desenvolvido e testado durante suas diferentes etapas no StackBlitz.
 
-**Prompt:**
+Para demonstrar a integração com a API, sugerimos o seguinte roteiro:
 
-> "O tema da minha equipe é consultas médicas. me auxilie no desenvolvimento de uma aplicação Vue.js One Page, utilizando apenas os conteúdos ensinados pelo professor, sem Vue Router e sem bibliotecas externas."
+1. Abrir a página **Agendar**.
+2. Preencher o nome do paciente, médico, data e horário.
+3. Digitar o CEP `68795-000`, correspondente a Benevides/PA.
+4. Clicar em **Buscar unidade**.
+5. Mostrar o endereço retornado pela API.
+6. Explicar que, como não existe unidade fictícia cadastrada em Benevides, as três unidades são disponibilizadas para escolha.
+7. Selecionar a Unidade Cidade Nova, por exemplo.
+8. Confirmar o agendamento.
+9. Navegar até **Minhas consultas** e mostrar a unidade registrada.
 
-**Etapa:** planejamento da aplicação e definição dos componentes.
+Também é possível demonstrar os estados de erro digitando um CEP incompleto ou consultando um CEP inexistente.
 
-### 2. Análise dos conteúdos estudados
+A resposta da API depende da disponibilidade do serviço e da conexão com a internet.
 
-**Prompt:**
+---
 
-> "Isso foi tudo o que foi passado durante as aulas dele. Preciso que você identifique tudo o que foi passado para minimizar comandos não vistos em sala."
+# 12. Utilização de inteligência artificial
 
-**Etapa:** revisão das cinco aulas de Front-End Frameworks e definição dos recursos permitidos.
+Durante a evolução do MedAgenda, utilizamos o ChatGPT como ferramenta de apoio para organizar o desenvolvimento, compreender conceitos, corrigir erros e implementar novas funcionalidades.
 
-### 3. Configuração do projeto
+A seguir estão alguns dos principais prompts utilizados durante o projeto.
 
-**Prompt:**
+### Planejamento e validação
 
-> "Me auxicilie a criar o sistema de consultas médicas pelo StackBlitz. Quero seguir passo a passo e usar apenas os recursos das cinco aulas."
+**Prompt:**  
+"vamos para a função de impedir horarios e datas impossiveis"
 
-**Etapa:** configuração do ambiente Vue.js e criação dos arquivos iniciais.
+**Etapa:** implementação de validações para impedir agendamentos com informações inválidas.
 
-### 4. Correção de erros
+### Integração do Vue Router e Bootstrap
 
-**Prompt:**
+**Prompt:**  
+"beleza, entao me da ai o passo a passo da instalação do vue router e do bootstrap"
 
-> "Vou mandar uma foto do código inteiro e você analisa e vê o que há de errado."
+**Etapa:** instalação e configuração dos frameworks no StackBlitz.
 
-**Etapa:** identificação e correção de problemas nos componentes, principalmente na exibição dos cards dos médicos.
+### Nova atividade de integração com API
 
-### 5. Identidade visual
+**Solicitação:**  
+Envio do enunciado da atividade de integração Front-End e Back-End por meio de APIs, solicitando a evolução do projeto MedAgenda.
 
-**Prompt:**
+**Etapa:** escolha da API ViaCEP e planejamento da integração.
 
-> "Estou achando o site simples demais. Vou enviar alguns sites para você analisar e me indicar para usar como inspiração para a nova identidade visual do projeto."
+### Cadastro das unidades
 
-**Etapa:** reformulação da aparência do MedAgenda, utilizando como referências Doctoralia, BoaConsulta e dr.consulta.
+**Prompt:**  
+"atualize a funcionalidade e adicione ai tres unidades BR-316, Marituba umarizal, Belém cidade nova, ananindeua"
 
-### 6. Melhorias no formulário
+**Etapa:** definição das três unidades fictícias.
 
-**Prompt:**
+### Simplificação da interface
 
-> "Quero melhorar a área separada para pôr o nome do paciente, a data, o horário e o médico. Dessa forma que está agora é simples e feia."
+**Prompt:**  
+"eu não gostei mostrar as unidades deforma fixa, quando o usuario adicionar o cep, coloque para mostrar as uniades, quanto menos coisa grande na tela, melhor"
 
-**Etapa:** organização visual dos campos e melhorias no CSS.
+**Etapa:** reorganização da interface para exibir as unidades somente após a consulta de CEP.
 
-### 7. Eventos e validação
+### Integração da escolha da unidade ao agendamento
 
-**Prompt:**
+**Prompt:**  
+"tá, agora integre tudo isso no formulario de agendamento, para que o paciente selecione em qual undade ele quer ser atendido, adicionando funcionalidade aos botoes"
 
-> "Agora o botão Agendar deve funcionar, e também a função de validação."
+**Etapa:** implementação dos botões de seleção e armazenamento da unidade junto ao agendamento.
 
-**Etapa:** implementação de interações com `@click`, `ref()` e verificação de campos obrigatórios.
+### Documentação do projeto
 
-### 8. Responsividade
+**Prompt:**  
+"fala cara, atualiza o readme da med agenda com base no que o trabalho pede, voce lembra?"
 
-**Prompt:**
+**Etapa:** atualização da documentação conforme os requisitos acadêmicos.
 
-> "Bom dia, chat, me ajude na melhora da responsividade."
+As sugestões geradas com auxílio de IA foram incorporadas ao projeto e revisadas durante o desenvolvimento. O grupo é responsável por compreender, testar e apresentar as funcionalidades implementadas.
 
-**Etapa:** adaptação dos componentes, formulário e menu para diferentes tamanhos de tela utilizando CSS.
+---
 
-### Como utilizamos as respostas
+# 13. Limitações do projeto
 
-As sugestões foram aplicadas gradualmente no StackBlitz. Durante esse processo, foram testados os componentes, identificados erros, corrigidos problemas de organização e ajuste da interface conforme as necessidades do projeto.
+O MedAgenda é uma aplicação acadêmica e demonstrativa.
 
-A utilização da IA não substituiu o acompanhamento do desenvolvimento e dos testes da aplicação.
+- Os médicos e as unidades são fictícios.
+- As consultas não são registradas em clínicas reais.
+- O sistema não possui banco de dados nem servidor próprio para armazenar agendamentos.
+- Os agendamentos são armazenados somente no navegador utilizado.
+- A API ViaCEP fornece dados de endereço, mas não calcula distâncias.
+- A indicação de unidade utiliza uma correspondência por município, e não geolocalização.
+- A disponibilidade real dos médicos não é consultada.
+- O funcionamento da consulta de CEP depende de acesso à internet.
 
-## Limitações
+## 14. Conclusão
 
-O MedAgenda é uma simulação de front-end desenvolvida para fins acadêmicos.
+A evolução do MedAgenda permitiu aplicar, na prática, conceitos importantes do desenvolvimento Front-End.
 
-Os médicos apresentados são fictícios, e os agendamentos ficam armazenados temporariamente durante a utilização da página.
+Inicialmente, trabalhamos com componentes, props, diretivas e reatividade no Vue.js.
 
-Ao atualizar o navegador, as consultas cadastradas podem ser perdidas, pois o projeto não possui banco de dados.
+Posteriormente, implementamos navegação SPA com Vue Router e aprimoramos a interface por meio do Bootstrap.
 
-O sistema não realiza agendamentos reais com clínicas ou profissionais de saúde.
+Na atividade mais recente, integramos a API ViaCEP ao formulário de agendamento utilizando requisições HTTP GET, programação assíncrona, respostas JSON e atualização reativa da interface.
 
-## Integrantes da equipe
+Também criamos uma interação na qual o paciente consulta seu endereço, visualiza as unidades disponíveis, seleciona uma unidade e registra essa escolha junto ao agendamento.
 
-Integrante 1: Guilherme da Rocha da Silva
-Integrante 2: Enzo Lira da Silva
-Integrante 3: Fernando Noronha Braga da Silva
-Integrante 4: Salomão Bayonas Miranda Ribeiro
-
-## Disciplina
-
-**Curso:** Análise e Desenvolvimento de Sistemas
-
-**Disciplina:** Front-End Frameworks
-
-**Professor:** André Neto
-
-**Projeto:** MedAgenda — Sistema de Agendamento de Consultas Médicas
+Com isso, o projeto demonstra como uma aplicação Vue pode consumir informações externas e utilizá-las para oferecer novas funcionalidades sem reconstruir toda a aplicação.
